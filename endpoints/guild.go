@@ -57,7 +57,7 @@ func (g *GuildEndpoint) DeleteGuild(id string) error {
 }
 
 // GetGuilds retrieves all guilds.
-func (g *GuildEndpoint) GetGuilds() (*[]types.Guild, error) {
+func (g *GuildEndpoint) GetGuilds() ([]types.Guild, error) {
 	endpoint := "/v1/guilds"
 	response, err := g.client.DoRequest("GET", endpoint, nil)
 	if err != nil {
@@ -70,5 +70,5 @@ func (g *GuildEndpoint) GetGuilds() (*[]types.Guild, error) {
 		return nil, err
 	}
 
-	return &guilds, nil
+	return guilds, nil
 }

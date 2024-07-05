@@ -37,7 +37,7 @@ func (lb *LeaderboardEndpoint) GetGlobalLeaderboard(top int) (*[]types.Leaderboa
 
 // GetGuildLeaderboard retrieves the guild-specific leaderboard for the specified guild ID
 // with the top specified number of entries.
-func (lb *LeaderboardEndpoint) GetGuildLeaderboard(guildID string, top int) (*[]types.Leaderboard, error) {
+func (lb *LeaderboardEndpoint) GetGuildLeaderboard(guildID string, top int) ([]types.Leaderboard, error) {
 	endpoint := fmt.Sprintf("/v2/leaderboard/?mode=guild&guildId=%s&top=%d", guildID, top)
 	response, err := lb.client.DoRequest("GET", endpoint, nil)
 	if err != nil {
@@ -50,5 +50,5 @@ func (lb *LeaderboardEndpoint) GetGuildLeaderboard(guildID string, top int) (*[]
 		return nil, err
 	}
 
-	return &leaderboardEntries, nil
+	return leaderboardEntries, nil
 }

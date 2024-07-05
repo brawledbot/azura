@@ -88,7 +88,7 @@ func (u *UserEndpoint) UpdateFreeUses(id string, freeUses int) error {
 }
 
 // GetUsers retrieves all users.
-func (u *UserEndpoint) GetUsers() (*[]types.User, error) {
+func (u *UserEndpoint) GetUsers() ([]types.User, error) {
 	endpoint := "/v1/users"
 	response, err := u.client.DoRequest("GET", endpoint, nil)
 	if err != nil {
@@ -101,5 +101,5 @@ func (u *UserEndpoint) GetUsers() (*[]types.User, error) {
 		return nil, err
 	}
 
-	return &users, nil
+	return users, nil
 }
