@@ -88,18 +88,18 @@ func (u *UserEndpoint) UpdateFreeUses(id string, freeUses int) error {
 }
 
 // GetUsers retrieves all users.
-func (u *UserEndpoint) GetUsers() ([]types.User, error) {
+func (u *UserEndpoint) GetUsers() (*[]types.User, error) {
 	endpoint := "/v1/users"
 	response, err := u.client.DoRequest("GET", endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	var users []types.User
+	var users *[]types.User
 	result, err := parser.ParseDataToType(response.Data, &users)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.([]types.User), nil
+	return result.(*[]types.User), nil
 }
