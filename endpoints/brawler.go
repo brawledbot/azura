@@ -53,7 +53,7 @@ func (b *BrawlerEndpoint) GetBrawlerByName(name string) (*types.Brawler, error) 
 }
 
 // GetAllBrawlers retrieves all available brawlers.
-func (b *BrawlerEndpoint) GetAllBrawlers() (*[]types.Brawler, error) {
+func (b *BrawlerEndpoint) GetAllBrawlers() ([]types.Brawler, error) {
 	endpoint := "/v1/brawlers"
 	response, err := b.client.DoRequest("GET", endpoint, nil)
 	if err != nil {
@@ -66,5 +66,5 @@ func (b *BrawlerEndpoint) GetAllBrawlers() (*[]types.Brawler, error) {
 		return nil, err
 	}
 
-	return &brawlers, nil
+	return brawlers, nil
 }
