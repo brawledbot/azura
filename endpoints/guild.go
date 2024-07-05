@@ -27,12 +27,12 @@ func (g *GuildEndpoint) GetGuild(id string) (*types.Guild, error) {
 	}
 
 	var guild types.Guild
-	result, err := parser.ParseDataToType(response.Data, &guild)
+	err = parser.ParseDataToType(response.Data, &guild)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.(*types.Guild), nil
+	return &guild, nil
 }
 
 // CreateGuild creates a new guild with the provided data.
@@ -64,11 +64,11 @@ func (g *GuildEndpoint) GetGuilds() (*[]types.Guild, error) {
 		return nil, err
 	}
 
-	var guilds *[]types.Guild
-	result, err := parser.ParseDataToType(response.Data, &guilds)
+	var guilds []types.Guild
+	err = parser.ParseDataToType(response.Data, &guilds)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.(*[]types.Guild), nil
+	return &guilds, nil
 }

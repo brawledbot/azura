@@ -19,7 +19,7 @@ func NewLeaderboardEndpoint(client *azura.Client) *LeaderboardEndpoint {
 }
 
 // GetGlobalLeaderboard retrieves the global leaderboard with the top specified number of entries.
-func (lb *LeaderboardEndpoint) GetGlobalLeaderboard(top int) ([]types.Leaderboard, error) {
+func (lb *LeaderboardEndpoint) GetGlobalLeaderboard(top int) (*[]types.Leaderboard, error) {
 	endpoint := fmt.Sprintf("/v2/leaderboard/?mode=global&top=%d", top)
 	response, err := lb.client.DoRequest("GET", endpoint, nil)
 	if err != nil {
@@ -27,17 +27,17 @@ func (lb *LeaderboardEndpoint) GetGlobalLeaderboard(top int) ([]types.Leaderboar
 	}
 
 	var leaderboardEntries []types.Leaderboard
-	result, err := parser.ParseDataToType(response.Data, &leaderboardEntries)
+	err = parser.ParseDataToType(response.Data, &leaderboardEntries)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.([]types.Leaderboard), nil
+	return &leaderboardEntries, nil
 }
 
 // GetGuildLeaderboard retrieves the guild-specific leaderboard for the specified guild ID
 // with the top specified number of entries.
-func (lb *LeaderboardEndpoint) GetGuildLeaderboard(guildID string, top int) ([]types.Leaderboard, error) {
+func (lb *LeaderboardEndpoint) GetGuildLeaderboard(guildID string, top int) (*[]types.Leaderboard, error) {
 	endpoint := fmt.Sprintf("/v2/leaderboard/?mode=guild&guildId=%s&top=%d", guildID, top)
 	response, err := lb.client.DoRequest("GET", endpoint, nil)
 	if err != nil {
@@ -45,10 +45,10 @@ func (lb *LeaderboardEndpoint) GetGuildLeaderboard(guildID string, top int) ([]t
 	}
 
 	var leaderboardEntries []types.Leaderboard
-	result, err := parser.ParseDataToType(response.Data, &leaderboardEntries)
+	err = parser.ParseDataToType(response.Data, &leaderboardEntries)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.([]types.Leaderboard), nil
+	return &leaderboardEntries, nil
 }

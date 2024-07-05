@@ -27,12 +27,12 @@ func (b *BrawlerEndpoint) GetBrawlerByID(id int) (*types.Brawler, error) {
 	}
 
 	var brawler types.Brawler
-	result, err := parser.ParseDataToType(response.Data, &brawler)
+	err = parser.ParseDataToType(response.Data, &brawler)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.(*types.Brawler), nil
+	return &brawler, nil
 }
 
 // GetBrawlerByName retrieves a brawler by their name.
@@ -44,16 +44,16 @@ func (b *BrawlerEndpoint) GetBrawlerByName(name string) (*types.Brawler, error) 
 	}
 
 	var brawler types.Brawler
-	result, err := parser.ParseDataToType(response.Data, &brawler)
+	err = parser.ParseDataToType(response.Data, &brawler)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.(*types.Brawler), nil
+	return &brawler, nil
 }
 
 // GetAllBrawlers retrieves all available brawlers.
-func (b *BrawlerEndpoint) GetAllBrawlers() ([]types.Brawler, error) {
+func (b *BrawlerEndpoint) GetAllBrawlers() (*[]types.Brawler, error) {
 	endpoint := "/v1/brawlers"
 	response, err := b.client.DoRequest("GET", endpoint, nil)
 	if err != nil {
@@ -61,10 +61,10 @@ func (b *BrawlerEndpoint) GetAllBrawlers() ([]types.Brawler, error) {
 	}
 
 	var brawlers []types.Brawler
-	result, err := parser.ParseDataToType(response.Data, &brawlers)
+	err = parser.ParseDataToType(response.Data, &brawlers)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.([]types.Brawler), nil
+	return &brawlers, nil
 }

@@ -27,10 +27,10 @@ func (p *ProfileEndpoint) GetProfile(tag string) (*types.Profile, error) {
 	}
 
 	var profile types.Profile
-	result, err := parser.ParseDataToType(response.Data, &profile)
+	err = parser.ParseDataToType(response.Data, &profile)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.(*types.Profile), nil
+	return &profile, nil
 }

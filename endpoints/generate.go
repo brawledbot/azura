@@ -27,12 +27,12 @@ func (g *GenerateEndpoint) Generate(playerTag string, renderType string) (*types
 	}
 
 	var generatedImage types.GeneratedImage
-	result, err := parser.ParseDataToType(response.Data, &generatedImage)
+	err = parser.ParseDataToType(response.Data, &generatedImage)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.(*types.GeneratedImage), nil
+	return &generatedImage, nil
 }
 
 // GenerateWithConfigURL generates an image with custom configuration specified by a URL.
@@ -44,10 +44,10 @@ func (g *GenerateEndpoint) GenerateWithConfigURL(playerTag string, renderType st
 	}
 
 	var generatedImage types.GeneratedImage
-	result, err := parser.ParseDataToType(response.Data, &generatedImage)
+	err = parser.ParseDataToType(response.Data, &generatedImage)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.(*types.GeneratedImage), nil
+	return &generatedImage, nil
 }

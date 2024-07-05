@@ -27,12 +27,12 @@ func (u *UserEndpoint) GetUserByID(id string) (*types.User, error) {
 	}
 
 	var user types.User
-	result, err := parser.ParseDataToType(response.Data, &user)
+	err = parser.ParseDataToType(response.Data, &user)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.(*types.User), nil
+	return &user, nil
 }
 
 // GetUserByTag retrieves a user by their tag.
@@ -44,12 +44,12 @@ func (u *UserEndpoint) GetUserByTag(tag string) (*types.User, error) {
 	}
 
 	var user types.User
-	result, err := parser.ParseDataToType(response.Data, &user)
+	err = parser.ParseDataToType(response.Data, &user)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.(*types.User), nil
+	return &user, nil
 }
 
 // CreateUser creates a new user with the provided data.
@@ -95,11 +95,11 @@ func (u *UserEndpoint) GetUsers() (*[]types.User, error) {
 		return nil, err
 	}
 
-	var users *[]types.User
-	result, err := parser.ParseDataToType(response.Data, &users)
+	var users []types.User
+	err = parser.ParseDataToType(response.Data, &users)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.(*[]types.User), nil
+	return &users, nil
 }

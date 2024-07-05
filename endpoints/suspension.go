@@ -27,12 +27,12 @@ func (ss *SuspensionEndpoint) GetSuspension(id string) (*types.Suspension, error
 	}
 
 	var suspension types.Suspension
-	result, err := parser.ParseDataToType(response.Data, &suspension)
+	err = parser.ParseDataToType(response.Data, &suspension)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.(*types.Suspension), nil
+	return &suspension, nil
 }
 
 // SuspendUser suspends a user by their ID with a specified reason.
@@ -45,12 +45,12 @@ func (ss *SuspensionEndpoint) SuspendUser(id, reason string) (*types.Suspension,
 	}
 
 	var suspension types.Suspension
-	result, err := parser.ParseDataToType(response.Data, &suspension)
+	err = parser.ParseDataToType(response.Data, &suspension)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.(*types.Suspension), nil
+	return &suspension, nil
 }
 
 // UnsuspendUser unsuspends a user by their ID.

@@ -27,10 +27,10 @@ func (c *ClubEndpoint) GetClub(tag string) (*types.Club, error) {
 	}
 
 	var club types.Club
-	result, err := parser.ParseDataToType(response.Data, &club)
+	err = parser.ParseDataToType(response.Data, &club)
 	if err != nil {
 		return nil, err
 	}
 
-	return result.(*types.Club), nil
+	return &club, nil
 }
