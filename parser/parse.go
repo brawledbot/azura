@@ -4,10 +4,9 @@ import (
 	"encoding/json"
 )
 
-// ParseDataToType parses data into the target type specified by targetType.
-// data: The input data to be parsed, typically JSON data.
-// targetType: A pointer to the target type into which the data will be unmarshaled.
-// Returns the parsed target type and any error encountered during parsing.
+// ParseDataToType parses data to a target type using JSON marshalling and unmarshalling.
+// The data is first marshalled to JSON and then unmarshalled to the target type.
+// If an error occurs during marshalling or unmarshalling, it is returned.
 func ParseDataToType(data interface{}, targetType interface{}) error {
 	jsonData, err := json.Marshal(data)
 	if err != nil {
