@@ -63,6 +63,15 @@ type Profile struct {
 		Rank            int    `json:"rank"`
 		Trophies        int    `json:"trophies"`
 		HighestTrophies int    `json:"highestTrophies"`
+		Rarity          struct {
+			ID    int    `json:"id"`
+			Name  string `json:"name"`
+			Color string `json:"color"`
+		} `json:"rarity"`
+		Brawled struct {
+			DiscordEmoji string `json:"discordEmoji"`
+			BrawlerImage string `json:"brawlerImage"`
+		} `json:"brawled"`
 	} `json:"brawlers"`
 	BattleLogs []struct {
 		BattleTime string `json:"battleTime"`
