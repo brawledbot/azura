@@ -18,6 +18,11 @@ type Verification struct {
 	CreatedAt int    `json:"created_at"`
 }
 
+type VerificationNameColor struct {
+	ID   string
+	Name string
+}
+
 type Suspension struct {
 	ID        string `json:"id"`
 	UserID    string `json:"user_id"`
