@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"net"
 	"net/http"
 )
 
@@ -58,6 +59,10 @@ func (c *Client) DoRequest(method, endpoint string, body interface{}) (*Response
 	req.Header.Set("Authorization", c.APIKey)
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
+		if _, ok := err.(net.Error); ok {
+			return nil, fmt.Errorf("the azura client cannot connect to the API server")
+		}
+
 		return nil, err
 	}
 	defer resp.Body.Close()
