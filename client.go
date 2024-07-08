@@ -18,6 +18,7 @@ type Client struct {
 
 // Response represents a response from the Azura API.
 type Response struct {
+	Code    int         `json:"code"`    // Code contains the status code of the response.
 	Data    interface{} `json:"data"`    // Data contains the returned data from the API.
 	Message string      `json:"message"` // Message contains any informative message returned by the API.
 }
@@ -55,7 +56,6 @@ func (c *Client) DoRequest(method, endpoint string, body interface{}) (*Response
 	if err != nil {
 		return nil, err
 	}
-
 	req.Header.Set("Authorization", c.APIKey)
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
