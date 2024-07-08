@@ -52,3 +52,21 @@ func (lb *LeaderboardEndpoint) GetGuildLeaderboard(guildID string, top int) ([]t
 
 	return leaderboardEntries, nil
 }
+
+// GetEventLeaderboard retrieves the event-specific leaderboard for the specified event ID
+// with the top specified number of entries.
+func (lb *LeaderboardEndpoint) GetEventLeaderboard(top int) ([]types.Leaderboard, error) {
+	endpoint := fmt.Sprintf("/v2/leaderboard/?mode=event&top=%d", top)
+	response, err := lb.client.DoRequest("GET", endpoint, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var leaderboardEntries []types.Leaderboard
+	err = parser.ParseDataToType(response.Data, &leaderboardEntries)
+	if err != nil {
+		return nil, err
+	}
+
+	return leaderboardEntries, nil
+}
